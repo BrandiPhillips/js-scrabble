@@ -1,6 +1,8 @@
 // object constructor creating a Scrabble object:
 var Scrabble = function() {};
 
+// ************** Scoring Functions ***************** //
+// ************************************************** //
 
 Scrabble.prototype.scoreWord = function (word) {
 
@@ -75,12 +77,25 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
     return winningWord
 };
 
-// *********** Testing *****************
+// **************** Player objects ****************** //
+// ************************************************** //
+
+var Player= function (name) {
+  this.name = name
+
+  ScrabbleGame = new Scrabble();
+}
+
+// ******************** Testing ********************* //
+// ************************************************** //
 // word = "JAX"
 // console.log(scoreWord("one"));
 var arrayOfWords = ['one', 'two', 'three', 'tank']
 var newGame = new Scrabble;
 console.log(newGame.highScore(arrayOfWords));
+
+var malika = new Player('Malika');
+console.log(malika.name);
 
 
 module.exports = Scrabble;
