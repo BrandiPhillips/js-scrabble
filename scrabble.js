@@ -41,7 +41,7 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
   arrayOfWords = arrayOfWords;
   wordScore = [];
   highScoringWords = [];
-  winningWord = "";
+  this.winningWord = "";
   wordLength = 7;
 
   //iterate over array to put the score of each word into wordScore array:
@@ -74,17 +74,32 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
         };
       };
     };
-    return winningWord
+    return this.winningWord
+    return this.highScore
 };
 
 // **************** Player objects ****************** //
 // ************************************************** //
 
 var Player= function (name) {
-  this.name = name
+  this.name = name;
+  this.wordsArray = [];
+  this.totalScore = 0;
+  // give the player object access to the scrabble game:
+  scrabbleGame = new Scrabble();
+};
 
-  ScrabbleGame = new Scrabble();
-}
+  // play(word): Function which adds the input word to the plays Array Returns false if player has already won
+Player.prototype.playWord = function(word){
+  if (this.totalScore === 100) {
+    return false
+  } else {
+    this.wordsArray.push(word);
+    this.totalScore += scrabbleGame.scoreWord(word);
+  }
+};
+
+
 
 // ******************** Testing ********************* //
 // ************************************************** //
@@ -96,6 +111,9 @@ console.log(newGame.highScore(arrayOfWords));
 
 var malika = new Player('Malika');
 console.log(malika.name);
+malika.playWord("three");
+console.log(malika.totalScore);
+console.log(malika.wordsArray);
 
 
 module.exports = Scrabble;
