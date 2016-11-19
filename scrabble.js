@@ -2,12 +2,12 @@
 var Scrabble = function() {};
 
 
-var scoreWord = function(word) {
+Scrabble.prototype.scoreWord = function (word) {
 
   // if (word == "" || !word.match(/^[[:alpha:]]+$/) ) {
   //   return "invalid entry"
-  // };
-  word = word.toLowerCase();
+  // }; **** tried this to make sure a word entered doesn't have specia charactors or numbers... couldn't get it to work.
+  word = word.toLowerCase(); // I changed this as a debugging attempt from uppercase...
   word = Array.from(word);
   // console.log(word);
   score = 0;
@@ -35,7 +35,7 @@ var scoreWord = function(word) {
   return score;
 };
 
-var highScore = function(arrayOfWords) {
+Scrabble.prototype.highScore = function(arrayOfWords) {
   arrayOfWords = arrayOfWords;
   wordScore = [];
   highScoringWords = [];
@@ -44,7 +44,7 @@ var highScore = function(arrayOfWords) {
 
   //iterate over array to put the score of each word into wordScore array:
   for (var i = 0; i < arrayOfWords.length; i++) {
-    wordScore.push(scoreWord(arrayOfWords[i]));
+    wordScore.push(this.scoreWord(arrayOfWords[i]));
   };
   // console.log(wordScore);
 
@@ -75,11 +75,12 @@ var highScore = function(arrayOfWords) {
     return winningWord
 };
 
-
+// *********** Testing *****************
 // word = "JAX"
 // console.log(scoreWord("one"));
 var arrayOfWords = ['one', 'two', 'three', 'tank']
-console.log(highScore(arrayOfWords));
+var newGame = new Scrabble;
+console.log(newGame.highScore(arrayOfWords));
 
 
 module.exports = Scrabble;
