@@ -75,7 +75,7 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
       };
     };
     return this.winningWord
-    return this.highScore
+    return this.highScore // can you have two return values??  :)
 };
 
 // **************** Player objects ****************** //
@@ -83,21 +83,32 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
 
 var Player= function (name) {
   this.name = name;
-  this.wordsArray = [];
+  this.plays = [];
   this.totalScore = 0;
   // give the player object access to the scrabble game:
   scrabbleGame = new Scrabble();
+  // allow the player to get their current score.  It will notify them if they have won when called:
+  this.getScore = function(){
+    return this.totalScore;
+    if (this.totalScore >= 100){
+      return "You've Won!"
+    };
+  };
 };
 
-  // play(word): Function which adds the input word to the plays Array Returns false if player has already won
+  // play(word): Function which adds the input word to the plays Array Returns "you've won" if player has already won
 Player.prototype.playWord = function(word){
-  if (this.totalScore === 100) {
-    return false
+  if (this.totalScore >= 100) {
+    return "you've won"
   } else {
-    this.wordsArray.push(word);
+    this.plays.push(word);
     this.totalScore += scrabbleGame.scoreWord(word);
   }
 };
+// highestScoringWord(): Function which returns the highest scoring word the user has played
+Player.prototype.highScoringWord = function(){
+  scrabbleGame.highestScoringWord(this.plays);
+}
 
 
 
@@ -112,8 +123,14 @@ console.log(newGame.highScore(arrayOfWords));
 var malika = new Player('Malika');
 console.log(malika.name);
 malika.playWord("three");
-console.log(malika.totalScore);
-console.log(malika.wordsArray);
+console.log(malika.getScore());
+console.log(malika.plays);
+malika.playWord("mathmatical");
+malika.playWord("fun");
+malika.playWord("is");
+malika.playWord("funny");
+malika.playWord()
+
 
 
 module.exports = Scrabble;
