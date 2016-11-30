@@ -9,10 +9,10 @@ Scrabble.prototype.scoreWord = function (word) {
   // if (word == "" || !word.match(/^[[:alpha:]]+$/) ) {
   //   return "invalid entry"
   // }; **** tried this to make sure a word entered doesn't have specia charactors or numbers... couldn't get it to work.
-  word = word.toLowerCase(); // I changed this as a debugging attempt from uppercase...
-  word = Array.from(word);
+  var word = word.toLowerCase(); // I changed this as a debugging attempt from uppercase...
+  // word = Array.from(word);
   // console.log(word);
-  score = 0;
+  var score = 0;
 
   for (var i = 0; i < word.length; i++) {
     if (word[i].length === 7){
@@ -38,11 +38,11 @@ Scrabble.prototype.scoreWord = function (word) {
 };
 
 Scrabble.prototype.highScore = function(arrayOfWords) {
-  arrayOfWords = arrayOfWords;
-  wordScore = [];
-  highScoringWords = [];
+  var arrayOfWords = arrayOfWords;
+  var wordScore = [];
+  var highScoringWords = [];
   this.winningWord = "";
-  wordLength = 7;
+  var wordLength = 7;
 
   //iterate over array to put the score of each word into wordScore array:
   for (var i = 0; i < arrayOfWords.length; i++) {
@@ -51,7 +51,7 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
   // console.log(wordScore);
 
   // find the highest score:
-  highScore = Math.max.apply(Math, wordScore);
+  var highScore = Math.max.apply(Math, wordScore);
   // console.log(highScore);
 
   // are there more than one high score:
@@ -74,8 +74,9 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
         };
       };
     };
-    return this.winningWord
-    return this.highScore // can you have two return values??  :)
+    // console.log('this' + winningWord)
+    return winningWord
+    // return this.highScore // can you have two return values??  :)
 };
 
 // **************** Player objects ****************** //
@@ -86,7 +87,7 @@ var Player= function (name) {
   this.plays = [];
   this.totalScore = 0;
   // give the player object access to the scrabble game:
-  scrabbleGame = new Scrabble();
+  var scrabbleGame = new Scrabble();
   // allow the player to get their current score.  It will notify them if they have won when called:
   this.getScore = function(){
     return this.totalScore;
@@ -94,21 +95,24 @@ var Player= function (name) {
       return "You've Won!"
     };
   };
+  this.playWord = function(word){
+    if (this.totalScore >= 100) {
+      return console.log("you've won");
+    } else {
+      this.plays.push(word);
+      this.totalScore += scrabbleGame.scoreWord(word);
+    }
+  };
+  this.highScoringWord = function(){
+      return scrabbleGame.highScore(this.plays);
+    };
 };
 
-  // play(word): Function which adds the input word to the plays Array Returns "you've won" if player has already won
-Player.prototype.playWord = function(word){
-  if (this.totalScore >= 100) {
-    return "you've won"
-  } else {
-    this.plays.push(word);
-    this.totalScore += scrabbleGame.scoreWord(word);
-  }
-};
+
 // highestScoringWord(): Function which returns the highest scoring word the user has played
-Player.prototype.highScoringWord = function(){
-  scrabbleGame.highestScoringWord(this.plays);
-}
+// Player.prototype.highScoringWord = function(){
+//   scrabbleGame.highestScoringWord(this.plays);
+// }
 
 
 
@@ -129,7 +133,13 @@ malika.playWord("mathmatical");
 malika.playWord("fun");
 malika.playWord("is");
 malika.playWord("funny");
-malika.playWord()
+malika.playWord("monkey");
+malika.playWord('xyzqwpy')
+
+console.log(malika.getScore());
+// console.log(word);
+console.log(malika.highScoringWord());
+
 
 
 
