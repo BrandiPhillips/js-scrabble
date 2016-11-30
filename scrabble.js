@@ -9,28 +9,28 @@ Scrabble.prototype.scoreWord = function (word) {
   // if (word == "" || !word.match(/^[[:alpha:]]+$/) ) {
   //   return "invalid entry"
   // }; **** tried this to make sure a word entered doesn't have specia charactors or numbers... couldn't get it to work.
-  word = word.toLowerCase(); // I changed this as a debugging attempt from uppercase...
-  word = Array.from(word);
+  var word = word.toLowerCase(); // I changed this as a debugging attempt from uppercase...
+  var wordLetters = Array.from(word);
   // console.log(word);
-  score = 0;
+  var score = 0;
 
-  for (var i = 0; i < word.length; i++) {
-    if (word[i].length === 7){
+  for (var i = 0; i < wordLetters.length; i++) {
+    if (wordLetters[i].length === 7){
       score += 50;
     }
-    if (word[i] == "a"|| word[i] == "e" || word[i] == "i" || word[i] == "o" || word[i] == "u" || word[i] == "l" || word[i] == "n" || word[i] == "r" || word[i] == "s" || word[i] == "t") {
+    if (wordLetters[i] == "a"|| wordLetters[i] == "e" || wordLetters[i] == "i" || wordLetters[i] == "o" || wordLetters[i] == "u" || wordLetters[i] == "l" || wordLetters[i] == "n" || wordLetters[i] == "r" || wordLetters[i] == "s" || wordLetters[i] == "t") {
       score += 1;
-    } else if (word[i] == "d" || word[i] == "g") {
+    } else if (wordLetters[i] == "d" || wordLetters[i] == "g") {
       score += 2;
-    } else if (word[i] == "b" || word[i] == "c" || word[i] == "m" || word[i] == "p") {
+    } else if (wordLetters[i] == "b" || wordLetters[i] == "c" || wordLetters[i] == "m" || wordLetters[i] == "p") {
       score += 3;
-    } else if (word[i] == "f" || word[i] == "h" || word[i] == "v" || word[i] == "w" || word[i] == "y") {
+    } else if (wordLetters[i] == "f" || wordLetters[i] == "h" || wordLetters[i] == "v" || wordLetters[i] == "w" || wordLetters[i] == "y") {
       score += 4;
-    } else if (word[i] == "k") {
+    } else if (wordLetters[i] == "k") {
       score += 5;
-    } else if (word[i] == "j" || word[i] == "x") {
+    } else if (wordLetters[i] == "j" || wordLetters[i] == "x") {
       score += 8;
-    } else if (word[i] == 'q' || word[i] == "z") {
+    } else if (wordLetters[i] == 'q' || wordLetters[i] == "z") {
       score += 10;
     };
   };
@@ -38,11 +38,12 @@ Scrabble.prototype.scoreWord = function (word) {
 };
 
 Scrabble.prototype.highScore = function(arrayOfWords) {
-  arrayOfWords = arrayOfWords;
-  wordScore = [];
-  highScoringWords = [];
-  this.winningWord = "";
-  wordLength = 7;
+  var arrayOfWords = arrayOfWords;
+  var wordScore = [];
+  var highScoringWords = [];
+  winningWord;
+  hightScore;
+  var wordLength = 7;
 
   //iterate over array to put the score of each word into wordScore array:
   for (var i = 0; i < arrayOfWords.length; i++) {
@@ -74,21 +75,21 @@ Scrabble.prototype.highScore = function(arrayOfWords) {
         };
       };
     };
-    return this.winningWord
-    return this.highScore // can you have two return values??  :)
+    return winningWord
+    return highScore // can you have two return values??  :)
 };
 
 // **************** Player objects ****************** //
 // ************************************************** //
 
-var Player= function (name) {
+var Player = function (name) {
   this.name = name;
   this.plays = [];
   this.totalScore = 0;
   // give the player object access to the scrabble game:
   scrabbleGame = new Scrabble();
   // allow the player to get their current score.  It will notify them if they have won when called:
-  this.getScore = function(){
+  getScore = function(){
     return this.totalScore;
     if (this.totalScore >= 100){
       return "You've Won!"
@@ -106,9 +107,9 @@ Player.prototype.playWord = function(word){
   }
 };
 // highestScoringWord(): Function which returns the highest scoring word the user has played
-Player.prototype.highScoringWord = function(){
-  scrabbleGame.highestScoringWord(this.plays);
-}
+// Player.prototype.highScoringWord = function(){
+//   scrabbleGame.highestScoringWord(this.plays);
+// }
 
 
 
@@ -116,9 +117,9 @@ Player.prototype.highScoringWord = function(){
 // ************************************************** //
 // word = "JAX"
 // console.log(scoreWord("one"));
-var arrayOfWords = ['one', 'two', 'three', 'tank']
-var newGame = new Scrabble;
-console.log(newGame.highScore(arrayOfWords));
+// var arrayOfWords = ['one', 'two', 'three', 'tank']
+// var newGame = new Scrabble;
+// console.log(newGame.highScore(arrayOfWords));
 
 var malika = new Player('Malika');
 console.log(malika.name);
@@ -129,7 +130,9 @@ malika.playWord("mathmatical");
 malika.playWord("fun");
 malika.playWord("is");
 malika.playWord("funny");
-malika.playWord()
+malika.playWord("difficult");
+console.log(malika.scrabbleGame.getScore());
+console.log(malika.scrabble.highScore());
 
 
 
